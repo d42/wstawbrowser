@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title> </title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{% static "css/bootstrap-responsive.min.css" %}">
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+
+    {% if page %}
+      <script>
+        function leftArrowPressed() {
+          document.location.href='{% url 'wstaw:page' page|add:-1 %}';
+          // Your stuff here
+        }
+
+        function rightArrowPressed() {
+          document.location.href='{% url 'wstaw:page' page|add:1 %}';
+          // Your stuff 
+        }
+
+        document.onkeydown = function(evt) {
+            evt = evt || window.event;
+            switch (evt.keyCode) {
+                case 37:
+                    leftArrowPressed();
+                    break;
+                case 39:
+                    rightArrowPressed();
+                    break;
+            }
+        };
+    </script>
+    {% endif %}
+  </head>
+  {% for group in images %}
+  <div>
+    {% for i in group %}
+  {% spaceless %}
+        {% if i.image_link != '' %}
+          <div class="span3">
+            <a href={{i.image_link}}><img src={{i.thumbnail_link}}></a>
+          </div>
+        {% endif %}
+  {% endspaceless %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <body>
+
+  </body>
+
+</html>
+
